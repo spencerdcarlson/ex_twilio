@@ -29,6 +29,14 @@ defmodule ExTwilio.Config do
   def api_domain, do: from_env(:ex_twilio, :api_domain, "api.twilio.com")
 
   @doc """
+  Returns the domain of the Twilio [Trust Hub](https://www.twilio.com/docs/trust-hub) API. This will default to "trusthub.twilio.com",
+  but can be overridden using the following setting in `mix.exs`:
+
+      config :ex_twilio, trusthub_api_domain: "other.twilio.com"
+  """
+  def trusthub_domain, do: from_env(:ex_twilio, :trusthub_api_domain, "trusthub.twilio.com")
+
+  @doc """
   Returns the protocol used for the Twilio API. The default is `"https"` for
   interacting with the Twilio API, but when testing with Bypass, you may want
   this to be `"http"`.
@@ -54,6 +62,8 @@ defmodule ExTwilio.Config do
   settings given.
   """
   def base_url, do: "#{protocol()}://#{api_domain()}/#{api_version()}"
+
+  def trust_hub_url, do: "#{protocol()}://#{trusthub_domain()}/v1"
 
   def fax_url, do: "https://fax.twilio.com/v1"
 

@@ -75,7 +75,7 @@ defmodule ExTwilio.Parser do
         "next_page": 10
       }
 
-  You can parse the the JSON like this:
+  You can parse the JSON like this:
 
       ExTwilio.Parser.parse_list(json, Resource, "resources")
       {:ok, [%Resource{sid: "first"}, %Resource{sid: "second"}], %{"next_page" => 10}}
@@ -83,7 +83,7 @@ defmodule ExTwilio.Parser do
   @spec parse_list(HTTPoison.Response.t(), module, key) :: success_list | error
   def parse_list(response, module, key) do
     case handle_errors(response, fn body -> Jason.decode!(body) end) do
-      {:ok, json} -> {:ok, list_to_structs(json[key], module), Map.drop(json, [key])}
+      {:ok, json} -> {:ok, list_to_structs(json[key] || json["results"] || [], module), Map.drop(json, [key])}
       error -> error
     end
   end

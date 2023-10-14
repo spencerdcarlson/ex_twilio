@@ -17,12 +17,12 @@ defmodule ExTwilio.Mixfile do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :runtime_tools]]
   end
 
   defp deps do
     [
-      {:httpoison, ">= 0.9.0"},
+      {:httpoison, ">= 2.1.0"},
       {:jason, "~> 1.2"},
       {:inflex, "~> 2.0"},
       {:joken, "~> 2.0"},

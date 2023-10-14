@@ -4,6 +4,7 @@ defmodule ExTwilio.UrlGenerator do
   """
 
   alias ExTwilio.Config
+  require Logger
 
   @doc """
   Infers the proper Twilio URL for a resource when given a module, an optional
@@ -68,6 +69,10 @@ defmodule ExTwilio.UrlGenerator do
           url = add_segments(Config.video_url(), module, id, options)
           {url, options}
 
+        ["ExTwilio", "TrustHub" | _] ->
+          url = add_segments(Config.trust_hub_url(), module, id, options)
+          {url, options}
+
         _ ->
           # Add Account SID segment if not already present
           options = add_account_to_options(module, options)
@@ -85,13 +90,33 @@ defmodule ExTwilio.UrlGenerator do
 
   defp add_segments(url, module, id, options) do
     # Append parents
-    url = url <> build_segments(:parent, normalize_parents(module.parents), options)
+    parents = normalize_parents(module.parents)
+    Logger.debug(fn ->
+      if is_list(parents) and length(parents) != 0 do
+        "adding parents #{inspect(parents)}"
+      else
+        "no parents to add"
+      end
+    end)
+    url = url <> build_segments(:parent, parents, options)
 
     # Append module segment
     url = url <> segment(:main, {module.resource_name, id})
 
     # Append any child segments
-    url <> build_segments(:child, module.children, options)
+    Logger.debug(fn ->
+      if is_list(module.children) and length(module.children) != 0 do
+        "adding children #{inspect(module.children)}"
+      else
+        "no children to add"
+      end
+    end)
+
+    url = url <> build_segments(:child, module.children, options)
+
+    Logger.debug(url, [module: module, id: id, options: options])
+
+    url
   end
 
   @doc """

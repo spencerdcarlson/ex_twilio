@@ -29,3 +29,4 @@ ex_twilio-*.tar
 .env
 .DS_Store
 .elixir_ls
+.iex.exs

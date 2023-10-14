@@ -74,6 +74,20 @@ export TWILIO_WORKSPACE_SID=<workspace sid here> #optional
 Then, just be sure to run `source .env` in your shell before compiling your
 project.
 
+### Runtime Configuration
+If you need to switch accounts at runtime, you can pass in the account sid and token
+to any request as `:account` and `:token` options. For example:
+
+```elixir
+# Fetch credentials at runtime
+%{sid, token} = Repo.get!(Account, 1) 
+
+# Use runtime credentials for these requests
+ExTwilio.Address.all([account: sid, token: token])
+ExTwilio.TrustHub.CustomerProfile.all([account: sid, token: token])
+ExTwilio.TrustHub.CustomerProfile.find("BU7c04541d39f800fdc07d22025d2adf1f", [account: sid, token: token])
+```
+
 ### Multiple Environments
 If you want to use different Twilio credentials for different environments, then
 create separate Mix configuration files for each environment. To do this, change
