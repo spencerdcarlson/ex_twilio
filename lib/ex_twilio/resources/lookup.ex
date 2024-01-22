@@ -20,6 +20,27 @@ defmodule ExTwilio.Lookup do
               add_ons: nil
   end
 
+  #  "url": "https://lookups.twilio.com/v2/PhoneNumbers/+13852896994",
+
+  #  {
+  #  "call_forwarding": null,
+  #  "caller_name": null,
+  #  "calling_country_code": "1",
+  #  "country_code": "US",
+  #  "identity_match": null,
+  #  "line_type_intelligence": null,
+  #  "live_activity": null,
+  #  "national_format": "(385) 289-6994",
+  #  "phone_number": "+13852896994",
+  #  "phone_number_quality_score": null,
+  #  "reassigned_number": null,
+  #  "sim_swap": null,
+  #  "sms_pumping_risk": null,
+
+  #  "valid": true,
+  #  "validation_errors": []
+  # }
+
   @doc """
   Retrieves information based on the inputed phone number. Supports Twilio's add-ons.
 

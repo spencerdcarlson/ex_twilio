@@ -22,6 +22,3 @@ defmodule ExTwilio.TrustHub.Policy do
 
   use ExTwilio.Resource, import: [:stream, :all, :find]
 end
-
-
-
