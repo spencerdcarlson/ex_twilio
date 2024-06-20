@@ -33,9 +33,10 @@ defmodule ExTwilio.TrustHub.Evaluation do
   def parents, do: [:trust_product]
   def children, do: [:evaluation]
 
-  def create_evaluation(sid, params \\ []), do: create(params, [trust_product: sid])
+  def create_evaluation(sid, params \\ []), do: create(params, trust_product: sid)
 
-  def find_evaluation(sid, evaluation_sid), do: all([trust_product: sid, evaluation: evaluation_sid])
+  def find_evaluation(sid, evaluation_sid),
+    do: all(trust_product: sid, evaluation: evaluation_sid)
 
-  def all_evaluations(sid), do: all([trust_product: sid])
+  def all_evaluations(sid), do: all(trust_product: sid)
 end

@@ -40,15 +40,14 @@ defmodule ExTwilio.TrustHub.CustomerProfile do
             url: nil,
             links: nil
 
-
   use ExTwilio.Resource, import: [:all, :stream, :find, :create, :update, :destroy]
 
   def children, do: [:evaluation]
 
-  def evaluate(sid, [policy_sid: policy_sid]), do: evaluate(sid, %{policy_sid: policy_sid})
+  def evaluate(sid, policy_sid: policy_sid), do: evaluate(sid, %{policy_sid: policy_sid})
 
   def evaluate(sid, %{policy_sid: policy_sid}) do
-    update(sid, [policy_sid: policy_sid], [evaluation: "Evaluations"])
+    update(sid, [policy_sid: policy_sid], evaluation: "Evaluations")
   end
 
   def submit(sid), do: update(sid, status: "pending-review")

@@ -91,6 +91,7 @@ defmodule ExTwilio.UrlGenerator do
   defp add_segments(url, module, id, options) do
     # Append parents
     parents = normalize_parents(module.parents)
+
     Logger.debug(fn ->
       if is_list(parents) and length(parents) != 0 do
         "adding parents #{inspect(parents)}"
@@ -98,6 +99,7 @@ defmodule ExTwilio.UrlGenerator do
         "no parents to add"
       end
     end)
+
     url = url <> build_segments(:parent, parents, options)
 
     # Append module segment
@@ -114,7 +116,7 @@ defmodule ExTwilio.UrlGenerator do
 
     url = url <> build_segments(:child, module.children, options)
 
-    Logger.debug(url, [module: module, id: id, options: options])
+    Logger.debug(url, module: module, id: id, options: options)
 
     url
   end
